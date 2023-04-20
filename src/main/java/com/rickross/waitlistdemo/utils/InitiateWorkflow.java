@@ -12,13 +12,18 @@ public class InitiateWorkflow {
             System.out.println("required arguments: emailAddress firstName lastName");
             System.exit(1);
         }
+        String email = args[0];
+        String firstName = args[1];
+        String lastName = args[2];
 
         WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
         WorkflowClient client = WorkflowClient.newInstance(service);
-        WorkflowOptions options = WorkflowOptions.newBuilder().setTaskQueue(Common.WAITLIST_TASK_QUEUE).build();
+        WorkflowOptions options = WorkflowOptions.newBuilder().
+                setTaskQueue(Common.WAITLIST_TASK_QUEUE).
+                setWorkflowId(email).build();
         WaitlistWorkflow workflow = client.newWorkflowStub(WaitlistWorkflow.class, options);
 
-        SignupDetails signupDetails = new SignupDetails(args[0], args[1], args[2]);
+        SignupDetails signupDetails = new SignupDetails(email, firstName, lastName);
 
         workflow.startWorkflow(signupDetails);
         System.out.print("The workflow is finished for " + signupDetails);
