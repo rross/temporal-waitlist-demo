@@ -21,7 +21,7 @@ public class WaitlistWorkflowImpl implements WaitlistWorkflow {
     private boolean hasAnAccount = false;
 
     @Override
-    public WaitlistUser startWorkflow(SignupDetails signupDetails) {
+    public void startWorkflow(SignupDetails signupDetails) {
         Logger logger = Workflow.getLogger(WaitlistWorkflowImpl.class);
         logger.info("Starting workflow for " + signupDetails);
 
@@ -51,8 +51,6 @@ public class WaitlistWorkflowImpl implements WaitlistWorkflow {
         // Mark the person as signed up and save it
         wlUser.setInvited(true);
         saveWaitlistUser.save(wlUser);
-
-        return null;
     }
 
     @Override

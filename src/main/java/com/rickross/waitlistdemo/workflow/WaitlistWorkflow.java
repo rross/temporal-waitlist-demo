@@ -8,7 +8,7 @@ import io.temporal.workflow.WorkflowMethod;
 @WorkflowInterface
 public interface WaitlistWorkflow {
     @WorkflowMethod
-    WaitlistUser startWorkflow(SignupDetails signupDetails);
+    void startWorkflow(SignupDetails signupDetails);
 
     @SignalMethod
     void inviteToRegister();
